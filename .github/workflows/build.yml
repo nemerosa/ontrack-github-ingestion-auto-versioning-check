@@ -1,0 +1,66 @@
+name: "build"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency: "build-${{ github.ref }}"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ONTRACK_URL: "${{ secrets.ONTRACK_URL }}"
+      ONTRACK_TOKEN: "${{ secrets.ONTRACK_TOKEN }}"
+    steps:
+
+      - uses: actions/checkout@v3
+        id: checkout
+
+      - id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@nemerosa'
+
+      - id: npm-ci
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: npm-lint
+        run: npm run lint
+
+      - name: npm-test
+        run: npm run test
+
+      - name: npm-prepare
+        run: npm run prepare
+
+      - id: npm-compare
+        name: Package check
+        run: |
+          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build.  See status below:"
+            git diff
+            exit 1
+          fi
+
+      - name: ontrack-build-links
+        uses: nemerosa/ontrack-github-ingestion-build-links@v1.1.0
+        with:
+          logging: true
+          build-links-from-package-json: |-
+            - dependency: "@nemerosa/ontrack-github-action-client"
+              build-label: true
+              prefix: "v"
+
+      - name: npm-publish
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
