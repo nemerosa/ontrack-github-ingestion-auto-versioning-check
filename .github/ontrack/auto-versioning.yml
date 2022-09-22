@@ -1,0 +1,8 @@
+configurations:
+  - project: ontrack-github-action-client
+    branch: main
+    promotion: BRONZE
+    path: package.json
+    property-type: npm
+    property: "@nemerosa/ontrack-github-action-client"
+    auto-approval: false
