@@ -5,6 +5,10 @@ GitHub Action used to request a check of the auto versioning.
 
 > See the [auto versioning documentation](https://static.nemerosa.net/ontrack/release/latest/docs/doc/index.html#auto-versioning) for its configuration.
 
+## Prerequisites
+
+This requires Ontrack 4.3.6 or later to work.
+
 ## Example usage
 
 ```yaml
