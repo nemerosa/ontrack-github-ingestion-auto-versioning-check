@@ -13,7 +13,7 @@ This requires Ontrack 4.3.6 or later to work.
 
 ```yaml
 - name: 'auto-versioning-check'
-  uses: nemerosa/ontrack-github-ingestion-auto-versioning-check@v0.0.1
+  uses: nemerosa/ontrack-github-ingestion-auto-versioning-check@v1.0.0
 ```
 
 ## Inputs
