@@ -49,15 +49,6 @@ jobs:
             exit 1
           fi
 
-      - name: ontrack-build-links
-        uses: nemerosa/ontrack-github-ingestion-build-links@v1.1.0
-        with:
-          logging: true
-          build-links-from-package-json: |-
-            - dependency: "@nemerosa/ontrack-github-action-client"
-              build-label: true
-              prefix: "v"
-
       - name: auto-versioning-check
         uses: ./
         with:
