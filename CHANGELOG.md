@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/nemerosa/ontrack-github-ingestion-auto-versioning-check/compare/v1.0.1...v1.0.2) (2025-03-17)
+
+
+### Bug Fixes
+
+* using client 0.1.11 ([efa06f8](https://github.com/nemerosa/ontrack-github-ingestion-auto-versioning-check/commit/efa06f804599d4849691a5eb6a0ff46d4b0315fc))
+
 ## [1.0.1](https://github.com/nemerosa/ontrack-github-ingestion-auto-versioning-check/compare/v1.0.0...v1.0.1) (2023-10-13)
 
 
